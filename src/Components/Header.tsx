@@ -26,6 +26,7 @@ const Header = () => {
             <HiMenuAlt2 className='inline-flex md:hidden cursor-pointer text-2xl hover:text-orange-600' />
         </Container>
     </header>
+    
   )
 }
 
