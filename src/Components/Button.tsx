@@ -7,7 +7,7 @@ interface Props {
 }
 const Button = ({ children, className}: Props) => {
   return (
-    <button className={twMerge('bg-orange-400 text-base text-white hover:text-orange-600 hoverEffect md:px-8 md:py-3 rounded-full font-semibold cursor-pointer', className)}>{children}</button>
+    <button className={twMerge('bg-orange-400 text-base text-white hover:text-orange-600 hoverEffect md:px-8 px-4 py-3 rounded-full font-semibold cursor-pointer', className)}>{children}</button>
   )
 }
 

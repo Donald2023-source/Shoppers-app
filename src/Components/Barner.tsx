@@ -6,39 +6,45 @@ import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import Button from "./Button";
 const Barner = async () => {
+
   const barners = await getBarnerData();
   const singleBarner = barners[0];
+  
   return (
     <Container className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 md:max-h-[600px]">
       {/* Left half */}
-      <div className="md:col-span-2 bg-gray-200 relative fkex items-end justify-end rounded-lg overflow-hidden group">
-        <div className="h-full z-0 absolute left-10 top-0 flex flex-col justify-center isolate gap-5 md:gap-10">
-          <div>
-            <button className="bg-green-400 text-white rounded-full w-20 py-1 text-sm font-semibold hover:bg-green-600">
-              Sale {singleBarner?.price}
+      <div className="md:col-span-2 bg-gray-300 relative flex items-end justify-end rounded-lg overflow-hidden group">
+        <div className="w-full h-full absolute bg-black/30" />
+        <div className="h-full z-10 absolute left-10 top-0 flex flex-col justify-center isolate gap-5 md:gap-10">
+          <div className="flex flex-col gap-4">
+            <button className="bg-green-400 text-white rounded-full w-24 py-1 text-sm font-semibold hover:bg-green-600 px-2">
+              Sale N{singleBarner?.price}
             </button>
-            <p className="text-xl md:text-3xl font-semibold">
+            <p className="text-xl md:text-2xl text-gray-100 font-semibold">
               {singleBarner?.title}
             </p>
-            <h2 className="text-2xl md:text-6xl font-bold">
-              {singleBarner?.subtitle}
+            <h2 className="text-2xl text-slate-100 md:text-5xl font-bold">
+              {singleBarner?.subtitile}
             </h2>
-            <p className="text-xs md:text-sm text-black/60 font-medium max-w-44">
+            <p className="text-xs md:text-sm text-white max-w-60">
               {singleBarner?.description}
             </p>
           </div>
-          <Button>Shop Now</Button>
+          <Button className="w-fit">Shop Now</Button>
         </div>
         <Image
           src={urlFor(singleBarner?.image).url()}
           alt={singleBarner.title}
-          width={400}
-          height={400}
+          width={500}
+          height={500}
+          className="object-container h-full md:h-full max-h-[600px] self-end group-hover:scale-105 hoverEffect"
         />
       </div>
 
       {/* Right hal*/}
-      <div></div>
+      <div>
+        <div>{barners.map}</div>
+      </div>
     </Container>
   );
 };
