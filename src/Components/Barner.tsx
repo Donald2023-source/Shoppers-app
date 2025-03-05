@@ -5,6 +5,8 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import Button from "./Button";
+import { BarnerData } from "../../types";
+
 const Barner = async () => {
   const barners = await getBarnerData();
   const singleBarner = barners[0];
@@ -42,7 +44,30 @@ const Barner = async () => {
 
       {/* Right hal*/}
       <div>
-        <div>{barners.slice}</div>
+        <div className="flex flex-col space-y-5 md:space-y-10 h-auto md:max-[600px]">
+          {barners.slice(1, 3).map((item: BarnerData) => (
+            <div
+              className="h-full md:h-1/2 bg-slate-200 rounded-lg overflow-hidden flex justify-center items-center p-4 group"
+              key={item?._id}
+            >
+              <div>
+                <div>
+                  <p className="text-2xl font-semibold">{item?.title}</p>
+                  <p className="text-3xl font-bold">{item?.subtitle}</p>
+                </div>
+                <p className="mt-3 font-medium text-black/60 ">From {item?.price}</p>
+                <Link className="mt-5 font-bold underline-offset-2 decoration-[1px] hover:text-orange-400 hoverEffect" href={'/shop'}>Shop Now!</Link>
+              </div>
+              <Image
+                src={urlFor(item?.image).url()}
+                alt={item.title}
+                width={500}
+                height={500}
+                className="object-contain h-full md:h-60 w-1/2 group-hover:scale-105 hoverEffect"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
   );
