@@ -2,38 +2,34 @@ import { defineField, defineType } from "sanity";
 
 export default defineType({
   type: "document",
-  name: "barner",
-  title: "Barner",
+  name: "banner",
+  title: "Banner",
   fields: [
     defineField({
       name: "title",
-      title: "Titile",
+      title: "Title",
       type: "string",
     }),
-
     defineField({
-      name: "subtitile",
-      title: "Subtitile",
+      name: "subtitle",
+      title: "Sub Title",
       type: "string",
     }),
-
     defineField({
       name: "price",
-      title: "Starting from ",
+      title: "Starting From",
       type: "number",
     }),
-
     defineField({
       name: "description",
       title: "Description",
       type: "string",
     }),
-
     defineField({
       name: "image",
       title: "Image",
       type: "image",
-      description: "Barner Image",
+      description: "Banner Image",
       validation: (rule) => rule.required(),
       options: {
         hotspot: true,
@@ -46,4 +42,10 @@ export default defineType({
       },
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      media: "image",
+    },
+  },
 });
