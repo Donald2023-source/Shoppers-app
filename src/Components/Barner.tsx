@@ -6,10 +6,9 @@ import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import Button from "./Button";
 const Barner = async () => {
-
   const barners = await getBarnerData();
   const singleBarner = barners[0];
-  
+
   return (
     <Container className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 md:max-h-[600px]">
       {/* Left half */}
@@ -43,7 +42,7 @@ const Barner = async () => {
 
       {/* Right hal*/}
       <div>
-        <div>{barners.map}</div>
+        <div>{barners.slice}</div>
       </div>
     </Container>
   );
