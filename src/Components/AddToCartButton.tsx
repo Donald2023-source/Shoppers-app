@@ -14,7 +14,7 @@ const AddToCartButton = ({ item, className }: Props) => {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     dispatch(addToCart(item));
-    toast.success(`${item?.title.substring(0, 12)} added Successfully`);
+    toast.success(`${item?.title.substring(0, 15)} added Successfully`);
   };
   return (
     <button
