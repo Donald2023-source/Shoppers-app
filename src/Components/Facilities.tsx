@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaClockRotateLeft } from 'react-icons/fa6'
+import { FaClockRotateLeft, FaWallet } from 'react-icons/fa6'
 import { GoRocket } from 'react-icons/go'
 
 const Facilities = () => {
@@ -11,11 +11,12 @@ const Facilities = () => {
         },
         {
             title: 'Secure Payment',
-            description: "If goofs have problems",
-            icon: <FaClockRotateLeft />
+            description: "100% secure payment",
+            icon: <FaWallet />
         },
         {
-            title: '24/7 Support'
+            title: '24/7 Support',
+            description: 
         }
     ]
   return (
