@@ -83,11 +83,11 @@ export default defineType({
       type: "string",
     }),
 
-    defineField({
-      name: "quantity",
-      title: "Quantity",
-      type: "string",
-    }),
+      defineField({
+        name: "quantity",
+        title: "Quantity",
+        type: "string",
+      }),
   ],
 
   preview: {
