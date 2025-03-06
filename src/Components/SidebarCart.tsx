@@ -1,9 +1,14 @@
+'use client'
 import Link from "next/link";
 import React from "react";
 
 import { RiShoppingCart2Fill } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const SidebarCart = () => {
+
+  const storeData = useSelector((state) => state)
+  console.log(storeData)
   return (
    
       <Link
