@@ -12,7 +12,7 @@ export interface BarnerData {
       };
     };
     title: string;
-    subtitle: string;
+    subtitile: string;
     price: number;
     description: string;
   }

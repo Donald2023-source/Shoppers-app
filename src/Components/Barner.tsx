@@ -51,14 +51,22 @@ const Barner = async () => {
               className="h-full md:h-1/2 bg-slate-200 rounded-lg overflow-hidden flex justify-center items-center p-4 group"
               key={item?._id}
             >
-              <div>
+              <div className="flex flex-col gap-4">
                 <div>
                   <p className="text-2xl font-semibold">{item?.title}</p>
-                  <p className="text-3xl font-bold">{item?.subtitle}</p>
+                  <p className="text-xl font-bold">{item?.subtitile}</p>
                 </div>
-                <FormattedPrice amount={item?.price} />
+                <FormattedPrice
+                  className="text-orange-300"
+                  amount={item?.price}
+                />
 
-                <Link className="mt-5 font-bold underline-offset-2 decoration-[1px] hover:text-orange-400 hoverEffect" href={'/shop'}>Shop Now!</Link>
+                <Link
+                  className="mt-5 font-bold underline-offset-2 decoration-[1px] hover:text-orange-400 hoverEffect"
+                  href={"/shop"}
+                >
+                  Shop Now!
+                </Link>
               </div>
               <Image
                 src={urlFor(item?.image).url()}
