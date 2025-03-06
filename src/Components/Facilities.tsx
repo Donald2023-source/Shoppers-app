@@ -26,7 +26,19 @@ const Facilities = () => {
       icon: <PiChat />,
     },
   ];
-  return <div></div>;
+  return <div className="py-10 grid grid-cols-1 md:grid-cols-4 4m:grid-cols-2 gap-3">
+    {
+        data.map((item) => (
+            <div className="flex flex-col sm:flex-row items-center gap-3" key={item?.title}>
+                <span className="text-3xl text-orange-400">{item?.icon}</span>
+                <div className="text-center sm:text-left">
+                    <h2 className="uppercase font-bold">{item?.title}</h2>
+                    <p className="text-sm text-gray-500">{item?.description}</p>
+                </div>
+            </div>
+        ))
+    }
+  </div>;
 };
 
 export default Facilities;
