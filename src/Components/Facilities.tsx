@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaClockRotateLeft, FaWallet } from 'react-icons/fa6'
 import { GoRocket } from 'react-icons/go'
+import { PiChat } from 'react-icons/pi'
 
 const Facilities = () => {
     const data = [
@@ -21,7 +22,8 @@ const Facilities = () => {
         },
         {
             title: '24/7 Support',
-            description: 
+            description: 'Dedicated support',
+            icon: <PiChat />
         }
     ]
   return (
