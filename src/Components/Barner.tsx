@@ -6,6 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import Button from "./Button";
 import { BarnerData } from "../../types";
+import FormattedPrice from "./FormattedPrice";
 
 const Barner = async () => {
   const barners = await getBarnerData();
@@ -55,7 +56,8 @@ const Barner = async () => {
                   <p className="text-2xl font-semibold">{item?.title}</p>
                   <p className="text-3xl font-bold">{item?.subtitle}</p>
                 </div>
-                <p className="mt-3 font-medium text-black/60 ">From {item?.price}</p>
+                <FormattedPrice amount={item?.price} />
+
                 <Link className="mt-5 font-bold underline-offset-2 decoration-[1px] hover:text-orange-400 hoverEffect" href={'/shop'}>Shop Now!</Link>
               </div>
               <Image
