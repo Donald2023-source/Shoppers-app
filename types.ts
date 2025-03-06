@@ -50,7 +50,7 @@ export interface BarnerData {
     _type: "product";
     _id: string;
     position: string;
-    rowprice: number;
+    nowprice: number;
   }
   
   export interface StoreState {
