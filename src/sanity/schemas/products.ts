@@ -53,7 +53,7 @@ export default defineType({
     }),
 
     defineField({
-      name: "nowprice",
+      name: "rowPrice",
       title: "Row Price",
       type: "number",
     }),
@@ -83,11 +83,11 @@ export default defineType({
       type: "string",
     }),
 
-      defineField({
-        name: "quantity",
-        title: "Quantity",
-        type: "string",
-      }),
+    defineField({
+      name: "quantity",
+      title: "Quantity",
+      type: "string",
+    }),
   ],
 
   preview: {
