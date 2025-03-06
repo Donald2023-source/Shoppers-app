@@ -3,9 +3,10 @@ import { ProductData } from "../../types";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
+import { MdStar } from "react-icons/md";
 const ProductCard = ({ item }: { item: ProductData }) => {
-  const image = item.image
-  console.log(image)
+  const image = item.image;
+  console.log(image);
   return (
     <div className="border border-px border-gray-200 rounded-md relative group iverflow-hidden">
       <div>
@@ -18,6 +19,13 @@ const ProductCard = ({ item }: { item: ProductData }) => {
             className="w-full h-72 object-cover group-hover:scale-105 hoverEffect"
           />
         </Link>
+        <div>
+          <div>
+            {Array?.from({ length: 5 })?.map((_, index) => {
+              return <MdStar key={index} />;
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
