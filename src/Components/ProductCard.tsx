@@ -18,12 +18,12 @@ const ProductCard = ({ item }: { item: ProductData }) => {
             alt={item?._type}
             width={500}
             height={500}
-            className="w-full h-72 object-cover group-hover:scale-105 hoverEffect"
+            className="w-full h-32 md:h-64 object-cover group-hover:scale-105 hoverEffect"
           />
         </Link>
       </div>
       <div className="px-6 flex flex-col items-center gap-2">
-      <div className="text-base text-gray-400 py-4 flex items-center">
+      <div className="text-base text-gray-400 md:py-4 mt-1 flex items-center">
           {Array?.from({ length: 5 })?.map((_, index) => {
             const filled = index + 1 <= Math.floor(item?.ratings);
             const halfFilled =
@@ -45,10 +45,10 @@ const ProductCard = ({ item }: { item: ProductData }) => {
           })}
         </div>
         <p className="uppercase text-xs font-medium text-orange-400">{item?.brand}</p>
-        <h2 className="text=base font-semibold text-acent line-clamp-1">{item?.title}</h2>
-        <p className="text-center text-sm line-clamp-2">{item?.description}</p>
-        <div className="flex items-center gap-3 mb-5">
-          <FormattedPrice className="text-gray-400 line-through" amount={item?.rowPrice} />
+        <h2 className="text-base font-semibold text-acent line-clamp-1">{item?.title}</h2>
+        <p className="text-center md:block hidden text-xs md:text-sm line-clamp-2">{item?.description}</p>
+        <div className="flex md:flex-row items-center md:gap-3 md:mb-5 flex-wrap">
+          <FormattedPrice className="text-gray-400 line-through md:text-base text-[10px]" amount={item?.rowPrice} />
           <FormattedPrice className="text-orange-500 font-bold" amount={item?.price} />
         </div>
       </div>
