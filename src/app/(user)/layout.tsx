@@ -5,6 +5,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
 import Layout from "@/Components/Layout";
+import { Toaster } from "react-hot-toast";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,6 +36,12 @@ export default function RootLayout({
           {children}
           <Sidebar />
           <Footer />
+          <Toaster position="bottom-right" toastOptions={{
+            style: {
+              background: '#00000',
+              color: '#fffff'
+            }
+          }} />
         </Layout>
       </body>
     </html>
