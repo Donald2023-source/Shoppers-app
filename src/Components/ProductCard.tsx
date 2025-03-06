@@ -5,6 +5,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { MdStar } from "react-icons/md";
 import FormattedPrice from "./FormattedPrice";
+import AddToCartButton from "./AddToCartButton";
 const ProductCard = ({ item }: { item: ProductData }) => {
   // const image = item.rowPrice;
   // console.log(image);
@@ -51,6 +52,7 @@ const ProductCard = ({ item }: { item: ProductData }) => {
           <FormattedPrice className="text-orange-500 font-bold" amount={item?.price} />
         </div>
       </div>
+      <AddToCartButton />
     </div>
   );
 };
