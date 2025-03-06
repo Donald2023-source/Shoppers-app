@@ -9,7 +9,8 @@ const Facilities = () => {
             icon: <GoRocket />
         },
         {
-            title: 'Secure Payment'
+            title: 'Secure Payment',
+            description: "If goofs have problems"
         }
     ]
   return (
