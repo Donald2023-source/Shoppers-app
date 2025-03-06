@@ -40,7 +40,8 @@ const SingleProductPage = async ({ params: { slug } }: Props) => {
           <ProductInfo product={product} />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <h2 className="text-3xl font-bold tracking-wide py-3">Explore More From Us</h2>
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {Products?.map((item) => (
           <ProductCard item={item} key={item?._id} />
         ))}

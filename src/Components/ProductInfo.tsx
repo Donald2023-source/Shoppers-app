@@ -18,11 +18,11 @@ const ProductInfo = ({ product }: Props) => {
         </p>
         <FormattedPrice amount={product?.price} className="text-lg font-bold" />
 
-        <p className="text-sm">
+        <p className="text-sm text-black">
           you saved{" "}
           <FormattedPrice
             amount={product?.rowPrice - product?.price}
-            className="bg-lightGreen text-white px-2 rounded-md text-xs py-1"
+            className="bg-green-500 text-white px-2 rounded-md text-xs py-1"
           />{" "}
           from this item
         </p>
