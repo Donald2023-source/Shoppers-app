@@ -10,6 +10,11 @@ const Facilities = () => {
             icon: <GoRocket />
         },
         {
+            title: '90 Days Return',
+            description: 'If goods have problems',
+            icon: <FaClockRotateLeft />
+        },
+        {
             title: 'Secure Payment',
             description: "100% secure payment",
             icon: <FaWallet />
