@@ -1,19 +1,19 @@
-import React from 'react'
-import { ProductData } from '../../types'
-import { getProductsData } from '@/lib/getData'
-import products from '@/sanity/schemas/products'
-import ProductCard from './ProductCard'
+import React from "react";
+import { ProductData } from "../../types";
+import { getProductsData } from "@/lib/getData";
+import products from "@/sanity/schemas/products";
+import ProductCard from "./ProductCard";
 
-const ProductList = async() => {
-    const Products:ProductData[] = await getProductsData()
+const ProductList = async () => {
+  const Products: ProductData[] = await getProductsData();
 
   return (
-    <div>
-      {
-        Products.map((item) => <ProductCard key={item?._id} />)
-      }
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      {Products.map((item) => (
+        <ProductCard item={item} key={item?._id} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
