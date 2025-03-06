@@ -1,6 +1,6 @@
 const Loader = ({ title }: { title?: string }) => {
     return (
-      <div className="w-full min-h-screen bg-accent/70 flex flex-col items-center justify-center z-50">
+      <div className="w-full min-h-screen bg-black/70 flex flex-col items-center justify-center z-50">
         <div className="relative w-12 h-12">
           <svg
             className="animate-spin"
