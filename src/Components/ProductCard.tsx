@@ -52,7 +52,7 @@ const ProductCard = ({ item }: { item: ProductData }) => {
           <FormattedPrice className="text-orange-500 font-bold" amount={item?.price} />
         </div>
       </div>
-      <AddToCartButton />
+      <AddToCartButton item={item} />
     </div>
   );
 };
