@@ -5,87 +5,92 @@ interface UserInfo {
   id: string;
   name: string;
   email: string;
+  // Add any other properties you expect in the user information
 }
 
 interface InitialState {
   cart: ProductData[];
-  wishList: ProductData[];
-  UserInfo: UserInfo | null;
+  favorite: ProductData[];
+  userInfo: UserInfo | null;
 }
+
 const initialState: InitialState = {
   cart: [],
-  wishList: [],
-  UserInfo: null,
+  favorite: [],
+  userInfo: null,
 };
+
 export const shoppersSlice = createSlice({
   name: "shoppers",
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const existingProduct = state.cart.find(
-        (item) => item._id === action.payload._id
+      const existingProduct = state?.cart?.find(
+        (item) => item?._id === action.payload._id
       );
       if (existingProduct) {
-        existingProduct.quantity += 1;
+        existingProduct.quantity! += 1;
       } else {
-        state.cart.push(action.payload);
+        state.cart.push({ ...action.payload, quantity: 1 });
       }
     },
-
     increaseQuantity: (state, action) => {
-      const existingProduct = state.cart.find(
-        (item) => item._id === action.payload
+      const existingProduct = state?.cart?.find(
+        (item) => item?._id === action.payload
       );
       if (existingProduct) {
-        existingProduct.quantity += 1;
+        existingProduct.quantity! += 1;
       }
     },
-
     decreaseQuantity: (state, action) => {
-      const existingProduct = state.cart.find(
-        (item) => item._id === action.payload
+      const existingProduct = state?.cart?.find(
+        (item) => item?._id === action.payload
       );
       if (existingProduct) {
-        existingProduct.quantity -= 1;
+        existingProduct.quantity! -= 1;
       }
     },
-
     removeFromCart: (state, action) => {
-      state.cart = state.cart.filter((item) => item._id !== action.payload);
+      state.cart = state.cart.filter((item) => item?._id !== action.payload);
     },
-
     resetCart: (state) => {
       state.cart = [];
     },
-
-    addToWishList: (state, action) => {
-      const existingProduct = state.cart.find(
-        (item) => item._id === action.payload._id
+    // Favorite cart
+    addToFavorite: (state, action) => {
+      const existingProduct = state?.favorite?.find(
+        (item) => item?._id === action.payload?._id
       );
-      state.wishList.push(action.payload);
+      if (existingProduct) {
+        state.favorite = state.favorite.filter(
+          (item) => item?._id !== action.payload._id
+        );
+      } else {
+        state.favorite.push(action.payload);
+      }
     },
-    resetWishList: (state) => {
-      state.UserInfo = null;
+    resetFavorite: (state) => {
+      state.favorite = [];
     },
 
     addUser: (state, action) => {
-      state.UserInfo = action.payload
+      state.userInfo = action.payload;
     },
     removeUser: (state) => {
-      state.UserInfo = null
-    }
+      state.userInfo = null;
+    },
   },
 });
 
 export const {
   addToCart,
-  removeFromCart,
-  addToWishList,
-  resetCart,
-  resetWishList,
+  addUser,
+  removeUser,
   increaseQuantity,
   decreaseQuantity,
-  addUser, 
-  removeUser
+  removeFromCart,
+  resetCart,
+  addToFavorite,
+  resetFavorite,
 } = shoppersSlice.actions;
 export default shoppersSlice.reducer;
