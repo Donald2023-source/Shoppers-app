@@ -1,13 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import shopperReducers from "./shoppersSlice";
-import { persistStore, persistReducer, WebStorage } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import shoppersSlice from "./shoppersSlice";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  WebStorage,
+} from "redux-persist";
+import createWebStorage from "redux-persist/es/storage/createWebStorage";
 
-export function createPersistStorage(): WebStorage {
+export function createPersistStore(): WebStorage {
   const isServer = typeof window === "undefined";
 
-  // create dummy server
-
+  // will returns our dummy server
   if (isServer) {
     return {
       getItem() {
@@ -21,19 +30,31 @@ export function createPersistStorage(): WebStorage {
       },
     };
   }
+  return createWebStorage("local");
 }
+
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createPersistStore();
 
 const persistConfig = {
   key: "root",
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, shopperReducers);
+const persistedReducer = persistReducer(persistConfig, shoppersSlice);
 
 export const store = configureStore({
   reducer: {
     shoppers: persistedReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
