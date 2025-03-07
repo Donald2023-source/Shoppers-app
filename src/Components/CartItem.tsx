@@ -5,7 +5,11 @@ import { ImCross } from "react-icons/im";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import { decreaseQuantity, removeFromCart } from "@/redux/shoppersSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "@/redux/shoppersSlice";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import FormattedPrice from "./FormattedPrice";
@@ -16,25 +20,28 @@ interface Props {
   item: ProductData;
 }
 const CartItem = ({ cart, item }: Props) => {
-  
   const dispatch = useDispatch();
-  const [existingProduct, setExistingProduct] = useState<ProductData | null>(null)
+  const [existingProduct, setExistingProduct] = useState<ProductData | null>(
+    null
+  );
 
   useEffect(() => {
-    const availableProduct = cart?.find((product: ProductData) => product?._id === item?._id);
-    if(availableProduct) {
-      setExistingProduct(availableProduct)
+    const availableProduct = cart?.find(
+      (product: ProductData) => product?._id === item?._id
+    );
+    if (availableProduct) {
+      setExistingProduct(availableProduct);
     }
-  }, [cart, item])
+  }, [cart, item]);
 
   const handleMinus = () => {
-    if((existingProduct?.quantity as number)> 1) {
-      dispatch(decreaseQuantity(item._id))
-      toast.success('Quantity descresed Successfully')
+    if ((existingProduct?.quantity as number) > 1) {
+      dispatch(decreaseQuantity(item._id));
+      toast.success("Quantity descresed Successfully");
     } else {
-      toast.error('Quanitiy cannot be less than 1')
+      toast.error("Quanitiy cannot be less than 1");
     }
-  }
+  };
   return (
     <div className="w-full grid grid-cols-5 mb-4 border py-2">
       <div className="col-span-5 md:col-span-2 flex items-center gap-4 ml-4">
@@ -62,9 +69,22 @@ const CartItem = ({ cart, item }: Props) => {
         </p>
 
         <div className="w-1/3 flex items-center gap-6 text-lg">
-          <button onClick={handleMinus} className="w-6 h-6 bg-gray-100 text-sm flex items-center justify-center hover:bg-orange-200 cursor-pointer border-[1px] hover:border-bg-orange-500 hoverEffect"><FaMinus /></button>
+          <button
+            onClick={handleMinus}
+            className="w-6 h-6 bg-gray-100 text-sm flex items-center justify-center hover:bg-orange-200 cursor-pointer border-[1px] hover:border-bg-orange-500 hoverEffect"
+          >
+            <FaMinus />
+          </button>
           <p className="text-sm font-semibold">{item?.quantity}</p>
-          <button className="w-6 h-6 bg-gray-100 text-sm flex items-center justify-center hover:bg-orange-200 cursor-pointer border-[1px] hover:border-bg-orange-500 hoverEffect"><FaPlus /></button>
+          <button
+            onClick={() => {
+              dispatch(increaseQuantity(item?._id));
+              toast.success("Quantity increased successfully");
+            }}
+            className="w-6 h-6 bg-gray-100 text-sm flex items-center justify-center hover:bg-orange-200 cursor-pointer border-[1px] hover:border-bg-orange-500 hoverEffect"
+          >
+            <FaPlus />
+          </button>
         </div>
         <div className="w-1/3 flex items-center font-bold textlg">
           <FormattedPrice amount={item?.quantity * item?.price} />

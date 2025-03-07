@@ -6,7 +6,9 @@ import CartItem from "./CartItem";
 
 const CartContainer = () => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
-
+  const handleReset = () => {
+    
+  }
   return (
     <div>
       <div>
@@ -25,6 +27,7 @@ const CartContainer = () => {
                     ))
                 }
             </div>
+            <button className="px-10 cursor-pointer py-3 bg-red-600 rounded-lg text-white mb-4 hover:bg-red-700 ">Reset cart</button>
           </div>
         ) : (
           <div>No Product</div>
