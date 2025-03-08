@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import emptyCart from "../../public/emptyCart.png";
+import FormattedPrice from "./FormattedPrice";
+import Button from "./Button";
 
 const CartContainer = () => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
@@ -42,6 +44,28 @@ const CartContainer = () => {
             >
               Reset cart
             </button>
+
+            <div className="max-w-7xl flex justify-end">
+              <div className="w-96 flex flex-col gap-4">
+                <div>
+                  <h1 className="text-2xl text-black font-semibold text-right">
+                    Cart totals
+                  </h1>
+                  <div>
+                    <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
+                      SubTotal: <FormattedPrice amount={250} />
+                    </p>
+                    <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
+                      Shipping Charge: <FormattedPrice amount={250} />
+                    </p>
+                    <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
+                      Total: <FormattedPrice amount={250} />
+                    </p>
+                  </div>
+                </div>
+            <Button disabled={true} className="py-3 px-3 rounded-md disabled:bg-gray-200 disabled:cursor-not-allowed hover:text-white ">Proceed to Checkout</Button>
+              </div>
+            </div>
           </div>
         ) : (
           <motion.div
