@@ -65,11 +65,11 @@ export default defineType({
       description: "Ratomgs must be equal or below 5",
     }),
 
-    defineField({
-      name: "isnew",
-      title: "New Arrival",
-      type: "boolean",
-    }),
+      defineField({
+        name: "isnew",
+        title: "New Arrival",
+        type: "boolean",
+      }),
 
     defineField({
       name: "position",

@@ -27,23 +27,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Layout>
-          <Header />
-          {children}
-          <Sidebar />
-          <Footer />
-          <Toaster position="bottom-right" toastOptions={{
+    <>
+      <Layout>
+        <Header />
+        {children}
+        <Sidebar />
+        <Footer />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
             style: {
-              background: '#00000',
-              color: '#fffff'
-            }
-          }} />
-        </Layout>
-      </body>
-    </html>
+              background: "#00000",
+              color: "#fffff",
+            },
+          }}
+        />
+      </Layout>
+    </>
   );
 }

@@ -17,7 +17,7 @@ const Header = () => {
               {item?.title}
             </Link>
           ))}
-          <Link href={"/signin"} className="navBarItem">
+          <Link href={"/Signin"} className="navBarItem">
             Sign in
           </Link>
 
