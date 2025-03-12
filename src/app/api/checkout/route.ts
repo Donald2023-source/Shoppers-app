@@ -9,7 +9,7 @@ export const POST = async (request: NextRequest) => {
     const reqBody = await request.json();
     const { items, email } = await reqBody;
 
-    const existingItems = items.map((item: ProductData) => ({
+    const extractingItems = items.map((item: ProductData) => ({
       quantity: item.quantity,
       price_data: {
         currency: "ngn",
@@ -23,10 +23,20 @@ export const POST = async (request: NextRequest) => {
 
     const origin = request.headers.get("origin");
     console.log(origin);
-    console.log(reqBody);
-    
-    return NextResponse.json({ message: "Hello from Checkout" });
 
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: extractingItems,
+        mode: 'payment',
+        success_url: `${origin}/success/session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/cancel/canceled=true`,
+        metadata: {
+            email
+        }
+    })
+    console.log(reqBody);
+
+    return NextResponse.json({ url: session?.url}, { status: 200});
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }

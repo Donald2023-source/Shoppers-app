@@ -16,18 +16,20 @@ const CartContainer = () => {
   const user = useSelector((state: StoreState) => state.shoppers?.userInfo);
 
   const handleCheckout = async() => {
-    const response = await fetch("api/checkout", {
+    const response = await fetch("/api/checkout", {
       method: "POST",
       headers: {
-        "Content-Type" : "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        item: cart,
-        email: user?.email
+        items: cart,
+        email: user?.email,
       }),
-    })
-    const result = await response.json()
-    console.log(result)
+    });
+    const { url } = await response.json()
+    if(url) {
+      window.location.href = url
+    }
   }
 
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
