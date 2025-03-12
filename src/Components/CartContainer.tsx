@@ -13,6 +13,21 @@ import FormattedPrice from "./FormattedPrice";
 import Button from "./Button";
 
 const CartContainer = () => {
+
+  // const handleCheckout = async() => {
+  //   const response = await fetch("api/checkout", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type" : "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       item: cart,
+  //       email: user?.email
+  //     }),
+  //   })
+  //   const result = await response.json()
+  //   console.log(result)
+  // }
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
   const dispatch = useDispatch();
   const handleReset = () => {
