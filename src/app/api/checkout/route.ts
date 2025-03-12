@@ -25,18 +25,18 @@ export const POST = async (request: NextRequest) => {
     console.log(origin);
 
     const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: extractingItems,
-        mode: 'payment',
-        success_url: `${origin}/success/session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${origin}/cancel/canceled=true`,
-        metadata: {
-            email
-        }
-    })
+      payment_method_types: ["card"],
+      line_items: extractingItems,
+      mode: "payment",
+      success_url: `${origin}/success/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/cancel/canceled=true`,
+      metadata: {
+        email,
+      },
+    });
     console.log(reqBody);
 
-    return NextResponse.json({ url: session?.url}, { status: 200});
+    return NextResponse.json({ url: session?.url }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }
