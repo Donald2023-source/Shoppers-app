@@ -13,21 +13,23 @@ import FormattedPrice from "./FormattedPrice";
 import Button from "./Button";
 
 const CartContainer = () => {
+  const user = useSelector((state: StoreState) => state.shoppers?.userInfo);
 
-  // const handleCheckout = async() => {
-  //   const response = await fetch("api/checkout", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type" : "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       item: cart,
-  //       email: user?.email
-  //     }),
-  //   })
-  //   const result = await response.json()
-  //   console.log(result)
-  // }
+  const handleCheckout = async() => {
+    const response = await fetch("api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        item: cart,
+        email: user?.email
+      }),
+    })
+    const result = await response.json()
+    console.log(result)
+  }
+
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
   const dispatch = useDispatch();
   const handleReset = () => {
@@ -37,6 +39,9 @@ const CartContainer = () => {
       toast.success("Cart reset successfully");
     }
   };
+  
+ console.log(user)
+  
   return (
     <div>
       <div>
@@ -78,7 +83,12 @@ const CartContainer = () => {
                     </p>
                   </div>
                 </div>
-            <Button disabled={true} className="py-3 px-3 rounded-md disabled:bg-gray-200 disabled:cursor-not-allowed hover:text-white ">Proceed to Checkout</Button>
+            <Button onClick={handleCheckout} disabled={!user} className="py-3 px-3 rounded-md disabled:bg-gray-200 disabled:cursor-not-allowed hover:text-white ">Proceed to Checkout</Button>
+            {
+              !user && (
+                <p className="text-cener text-sm font-medium text-red-400 -mt-3">Please sign in to make checkout</p>
+              )
+            }
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ interface UserInfo {
   id: string;
   name: string;
   email: string;
+  token: string | null;
   // Add any other properties you expect in the user information
 }
 
