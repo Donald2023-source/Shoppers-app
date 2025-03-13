@@ -7,6 +7,7 @@ import { HiCheckCircle, HiInformationCircle, HiMail } from "react-icons/hi";
 import { resetCart } from "@/redux/shoppersSlice";
 import Link from "next/link";
 import { HiHome } from "react-icons/hi";
+import toast from "react-hot-toast";
 const SucessContainer = ({ id }: { id: string }) => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
   const [totalAmt, setTotalAmt] = useState(0);
@@ -44,6 +45,7 @@ const SucessContainer = ({ id }: { id: string }) => {
       if (data?.success) {
         setLoading(false);
         dispatch(resetCart());
+        toast.success(data?.message)
       }
     } catch (error) {
       console.log("Error", error);
