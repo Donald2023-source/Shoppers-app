@@ -44,7 +44,7 @@ const SucessContainer = ({ id }: { id: string }) => {
       const data = await response.json();
       if (data?.success) {
         setLoading(false);
-        dispatch(resetCart());
+        // dispatch(resetCart());
         toast.success(data?.message)
       }
     } catch (error) {
