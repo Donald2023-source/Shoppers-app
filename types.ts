@@ -53,8 +53,11 @@ export interface ProductData {
   rowprice: number;
 }
 
+
+
 export interface StoreState {
   shoppers: {
     cart: ProductData[];
+    userInfo: any
   };
 }

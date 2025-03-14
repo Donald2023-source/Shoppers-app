@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductData, StoreState } from "../../types";
 import CartItem from "./CartItem";
@@ -43,6 +43,16 @@ const CartContainer = () => {
   };
   
  console.log(user)
+
+ const [totalAmt, setTotalAmt] = useState(0)
+ useEffect(() => {
+  let price = 0;
+  cart.map((item) => {
+    price+= item?.price * item?.quantity;
+    return price
+  });
+  setTotalAmt(price)
+ }, [cart])
   
   return (
     <div>
@@ -75,10 +85,10 @@ const CartContainer = () => {
                   </h1>
                   <div>
                     <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
-                      SubTotal: <FormattedPrice amount={250} />
+                      SubTotal: <FormattedPrice amount={totalAmt} />
                     </p>
                     <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
-                      Shipping Charge: <FormattedPrice amount={250} />
+                      Shipping Charge: <FormattedPrice amount={totalAmt} />
                     </p>
                     <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
                       Total: <FormattedPrice amount={250} />
