@@ -33,6 +33,7 @@ const CartContainer = () => {
   }
 
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
+  console.log(cart)
   const dispatch = useDispatch();
   const handleReset = () => {
     const confirmed = window.confirm("Are you sure you want to reset cart");
@@ -88,10 +89,10 @@ const CartContainer = () => {
                       SubTotal: <FormattedPrice amount={totalAmt} />
                     </p>
                     <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
-                      Shipping Charge: <FormattedPrice amount={totalAmt} />
+                      Shipping Charge: <FormattedPrice amount={0} />
                     </p>
                     <p className="flex items-center justify-between border-[1px] border-gray-200 border-b-0 py-1.5 px-4 text-lg font-medium">
-                      Total: <FormattedPrice amount={250} />
+                      Total: <FormattedPrice amount={totalAmt} />
                     </p>
                   </div>
                 </div>

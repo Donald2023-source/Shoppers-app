@@ -1,9 +1,10 @@
 "use client";
-import { resetCart } from "@/redux/shoppersSlice";
+import { removeUser, resetCart } from "@/redux/shoppersSlice";
 import { StoreState } from "@/types";
-
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { auth } from "@/firebase";
 import Loader from "./Loader";
 import Link from "next/link";
 import {
@@ -12,11 +13,13 @@ import {
   HiInformationCircle,
   HiMail,
 } from "react-icons/hi";
+import toast from "react-hot-toast";
+import { FIREBASE_SERVICE_ACCOUNT_KEY, myAccessToken } from "@/firebaseAdmin";
 
 const SuccessContainer = ({ id }: { id: string }) => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers);
   const dispatch = useDispatch();
-  const  user  = useSelector((state: StoreState) => state.shoppers.userInfo);
+  const user = useSelector((state: StoreState) => state.shoppers.userInfo);
 
   const [totalAmt, setTotalAmt] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -29,25 +32,46 @@ const SuccessContainer = ({ id }: { id: string }) => {
     setTotalAmt(price);
   }, [cart]);
 
-  const handleSaveOrder = async () => {
-    setLoading(true);
-    const response = await fetch("/api/saveorder", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cart,
-        email: user?.email as string,
-        id: id,
-        totalAmt,
-      }),
-    });
+  onAuthStateChanged(auth, (User: any) => {
+    if (User) {
+      console.log("User is logged in:", User);
+    } else {
+      console.log("User is logged out");
+    }
+  });
 
-    const data = await response.json();
-    if (data?.success) {
+
+
+  console.log("my user", user.token);
+  
+
+  const handleSaveOrder = async () => {
+    try {
+      const response = await fetch("/api/saveorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          cart,
+          email: user?.email as string,
+          id,
+          totalAmt,
+        }),
+      });
+
+      const data = await response.json();
+      console.log("data", data);
+      if (data?.success) {
+        setLoading(false);
+        dispatch(resetCart());
+        toast.success("Orde saved successfully");
+      }
+    } catch (error) {
+      console.log("error", error);
+    } finally {
       setLoading(false);
-      dispatch(resetCart());
     }
   };
 
@@ -56,6 +80,19 @@ const SuccessContainer = ({ id }: { id: string }) => {
       handleSaveOrder();
     }
   }, [user, cart?.length]);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out successfully");
+      dispatch(removeUser());
+      // Redirect or update UI after sign-out
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  console.log(user?.email);
   return (
     <div>
       {loading ? (
@@ -76,6 +113,8 @@ const SuccessContainer = ({ id }: { id: string }) => {
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
               Success!
             </h2>
+
+            
             <p className="mt-2 text-sm text-gray-600">
               Your action has been completed successfully.
             </p>
@@ -112,6 +151,8 @@ const SuccessContainer = ({ id }: { id: string }) => {
               <div className="w-3 h-3 bg-green-400 rounded-full"></div>
             </div>
           </div>
+
+          <button onClick={handleSignOut}>Sign out</button>
         </div>
       )}
     </div>

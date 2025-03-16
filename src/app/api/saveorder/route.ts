@@ -5,11 +5,6 @@ export const POST = async (request: NextRequest) => {
   try {
     const reqBody = await request.json();
     const { cart, email, id, totalAmt } = await reqBody;
-    console.log(reqBody);
-
-    if(!cart || !email || !id || !totalAmt ) {
-        NextResponse.json({ success: false, message: 'There is a missing field'})
-    }
 
     const orderItem = {
       amount: totalAmt,
@@ -17,27 +12,21 @@ export const POST = async (request: NextRequest) => {
     };
 
     if (cart.length) {
-      const userOrdersRef = adminDB
+      const userOrderRef = adminDB
         .collection("users")
         .doc(email)
         .collection("orders")
         .doc(id);
-      const userDoc = await userOrdersRef.get();
-      if (!userDoc?.exists) {
-        await userOrdersRef.set({ email });
-      }
 
-      await userOrdersRef.set({ value: orderItem }, { merge: true });
+        const userDoc = await userOrderRef.get()
+        if(!userDoc?.exists) {
+            await userOrderRef.set({email})
+        }
+        await userOrderRef.set({value: orderItem, merge: true})
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Order saved successfully",
-    });
+    return NextResponse.json({ success: true, message: 'Order saved successfully'}, { status: 200})
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: error,
-    });
+    return NextResponse.json({ success: false, error: error });
   }
 };
